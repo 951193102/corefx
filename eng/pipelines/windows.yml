@@ -66,6 +66,7 @@ jobs:
           _archGroup: x64
           framework: allConfigurations
 
+    submitToHelix: false
     useCustomBuildSteps: true
     customBuildSteps:
       - script: build.cmd
@@ -74,7 +75,6 @@ jobs:
                 /p:ArchGroup=$(_archGroup)
                 /p:ConfigurationGroup=$(_configuration)
                 /p:RuntimeOS=win10
-                /v:normal
         displayName: Build Packages
       - script: build.cmd
                 -ci
@@ -83,6 +83,7 @@ jobs:
                 /p:ArchGroup=$(_archGroup)
                 /p:ConfigurationGroup=$(_configuration)
                 /p:RuntimeOS=win10
+                /p:SkipTests=true
         displayName: Build Netstandard Test Suite
       - script: build.cmd
                 -ci

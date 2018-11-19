@@ -20,8 +20,8 @@ jobs:
         _buildScript: build.cmd -ci
         _msbuildCommand: powershell -ExecutionPolicy ByPass -NoProfile eng\common\msbuild.ps1 -warnaserror:0 -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
-        _buildScript: ./build.sh --ci
-        _msbuildCommand: ./eng/common/msbuild.sh --warnaserror false --ci
+        _buildScript: ${{ parameters.buildScriptPrefix }}./build.sh --ci
+        _msbuildCommand: ${{ parameters.buildScriptPrefix }}./eng/common/msbuild.sh --warnaserror false --ci
 
     displayName: ${{ parameters.displayName }}
     pool:
@@ -33,8 +33,9 @@ jobs:
         ${{ insert }}: ${{ parameters.strategy }}
 
     container: ${{ parameters.container }}
-    ${{ if eq(parameters.useCustomBuildSteps, 'false') }}:
-      steps:
+
+    steps:
+      - ${{ if eq(parameters.useCustomBuildSteps, 'false') }}:
         - script: $(_buildScript)
                 -includetests
                 -framework $(framework)
@@ -45,17 +46,16 @@ jobs:
                 /p:Outerloop=${{ parameters.testOuterloop }}
                 ${{ parameters.buildExtraArguments }}
           displayName: Build Sources and Tests
-        
-        - ${{ if eq(parameters.submitToHelix, 'true') }}:
-          - template: /eng/pipelines/helix.yml
-            parameters:
-              targetOS: ${{ parameters.targetOS }}
-              archGroup: $(_archGroup)
-              configuration: $(_configuration)
-              helixQueues: $(helixQueues)
-              msbuildScript: $(_msbuildCommand)
-              framework: $(framework)
     
-    ${{ if eq(parameters.useCustomBuildSteps, 'true') }}:
-      steps:
+      - ${{ if eq(parameters.useCustomBuildSteps, 'true') }}:
         - ${{ parameters.customBuildSteps }}
+
+      - ${{ if eq(parameters.submitToHelix, 'true') }}:
+        - template: /eng/pipelines/helix.yml
+          parameters:
+            targetOS: ${{ parameters.targetOS }}
+            archGroup: $(_archGroup)
+            configuration: $(_configuration)
+            helixQueues: $(helixQueues)
+            msbuildScript: $(_msbuildCommand)
+            framework: $(framework)
