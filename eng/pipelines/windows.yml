@@ -74,6 +74,7 @@ jobs:
                 /p:ArchGroup=$(_archGroup)
                 /p:ConfigurationGroup=$(_configuration)
                 /p:RuntimeOS=win10
+                /v:normal
         displayName: Build Packages
       - script: build.cmd
                 -ci
