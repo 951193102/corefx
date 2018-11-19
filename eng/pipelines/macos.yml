@@ -3,19 +3,19 @@ jobs:
 
 # Legs with Helix testing
 - template: corefx-base.yml
-    parameters:
-      name: MacOS
-      displayName: MacOS
-      strategy:
-        matrix:
-          x64_Debug:
-            _configuration: Debug
-            _archGroup: x64
-            framework: netcoreapp
-            helixQueues: $(_macOSQueues)
+  parameters:
+    name: MacOS
+    displayName: MacOS
+    strategy:
+      matrix:
+        x64_Debug:
+          _configuration: Debug
+          _archGroup: x64
+          framework: netcoreapp
+          helixQueues: $(_macOSQueues)
 
-      pool:
-        name: Hosted MacOS
+    pool:
+      name: Hosted MacOS
 
-      targetOS: MacOS
-      buildScriptPrefix: HOME=\$WORKSPACE/tempHome 
+    targetOS: MacOS
+    buildScriptPrefix: 'HOME=\$WORKSPACE/tempHome '
