@@ -18,4 +18,4 @@ jobs:
       name: Hosted MacOS
 
     targetOS: MacOS
-    buildScriptPrefix: 'HOME=\$WORKSPACE/tempHome '
+    # buildScriptPrefix: 'HOME=\$WORKSPACE/tempHome '
