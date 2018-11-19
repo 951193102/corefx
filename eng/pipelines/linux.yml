@@ -2,7 +2,7 @@
 jobs:
 
 # Legs with Helix testing
-- template: /eng/pipelines/corefx-base.yml
+- template: corefx-base.yml
     parameters:
       name: LinHelix
       displayName: Linux
@@ -23,7 +23,7 @@ jobs:
       container: $[ variables['_dockerContainer'] ]
 
 # Legs without helix
-# - template: /eng/pipelines/corefx-base.yml
+# - template: corefx-base.yml
 #     parameters:
 #       name: LinNoHelix
 #       displayName: Linux

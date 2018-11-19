@@ -2,7 +2,7 @@
 jobs:
 
 # Legs with Helix testing
-- template: /eng/pipelines/corefx-base.yml
+- template: corefx-base.yml
     parameters:
       name: MacOS
       displayName: MacOS
