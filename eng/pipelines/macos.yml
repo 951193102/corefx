@@ -19,6 +19,10 @@ jobs:
 
     targetOS: MacOS
     preBuildSteps:
-      - script: brew install pkgconfig openssl
+      - script: |
+          brew install pkgconfig openssl
+          ln -s /usr/local/opt/openssl/lib/pkgconfig/libcrypto.pc /usr/local/lib/pkgconfig/
+          ln -s /usr/local/opt/openssl/lib/pkgconfig/libssl.pc /usr/local/lib/pkgconfig/
+          ln -s /usr/local/opt/openssl/lib/pkgconfig/openssl.pc /usr/local/lib/pkgconfig/
         displayName: Install Build Dependencies
     # buildScriptPrefix: 'HOME=\$WORKSPACE/tempHome '
