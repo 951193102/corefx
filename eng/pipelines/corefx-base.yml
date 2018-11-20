@@ -4,6 +4,7 @@ parameters:
   strategy: {}
   skipTests: true
   targetOS: ''
+  timeoutInMinutes: 120
   testOuterloop: false
   container: ''
   buildScriptPrefix: ''
@@ -25,6 +26,7 @@ jobs:
         _msbuildCommand: ${{ parameters.buildScriptPrefix }}./eng/common/msbuild.sh --warnaserror false --ci
 
     displayName: ${{ parameters.displayName }}
+    timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
     pool:
       ${{ insert }}: ${{ parameters.pool }}
     
@@ -37,7 +39,7 @@ jobs:
 
     steps:
       - ${{ parameters.preBuildSteps }}
-      
+
       - ${{ if eq(parameters.useCustomBuildSteps, 'false') }}:
         - script: $(_buildScript)
                 -includetests
