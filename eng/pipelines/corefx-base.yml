@@ -11,6 +11,7 @@ parameters:
   displayName: ''
   useCustomBuildSteps: false
   customBuildSteps: []
+  preBuildSteps: []
 
 jobs:
   - job: ${{ parameters.name }}
@@ -35,6 +36,8 @@ jobs:
     container: ${{ parameters.container }}
 
     steps:
+      - ${{ parameters.preBuildSteps }}
+      
       - ${{ if eq(parameters.useCustomBuildSteps, 'false') }}:
         - script: $(_buildScript)
                 -includetests
