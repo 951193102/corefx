@@ -15,12 +15,23 @@ jobs:
           framework: netcoreapp
           helixQueues: $(_linuxDefaultQueues)
           _dockerContainer: RhelContainer
+          _buildScriptPrefix: ''
+
+        # netcoreapp linux arm64 release
+        arm64_Release:
+          _configuration: Release
+          _archGroup: arm64
+          framework: netcoreapp
+          helixQueues: $(_linuxArmQueues)
+          _dockerContainer: UbuntuArmContainer
+          _buildScriptPrefix: 'ROOTFS_DIR=/crossrootfs/arm64 '
 
     pool:
       name: Hosted Ubuntu 1604
 
     targetOS: Linux
     container: $[ variables['_dockerContainer'] ]
+    buildScriptPrefix: $[ variables['_buildScriptPrefix'] ]
 
 # Legs without helix
 - template: corefx-base.yml
