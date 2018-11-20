@@ -31,7 +31,7 @@ jobs:
 
     targetOS: Linux
     container: $[ variables['_dockerContainer'] ]
-    buildScriptPrefix: $[ variables['_buildScriptPrefix'] ]
+    buildScriptPrefix: $(_buildScriptPrefix)
 
 # Legs without helix
 - template: corefx-base.yml
